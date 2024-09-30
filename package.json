@@ -1,0 +1,13 @@
+{
+  "name": "restock-notifications",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@ringcentral/sdk": "^5.0.3",
+    "@supercharge/promise-pool": "^3.2.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.0"
+  }
+}
