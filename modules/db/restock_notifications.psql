@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS nfs.surtrics.restock_notifications;
+CREATE TABLE nfs.surtrics.restock_notifications (
+    id SERIAL PRIMARY KEY,
+    notification_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    sku VARCHAR(255) NOT NULL,
+    refurbished_price DECIMAL(10, 2) NOT NULL,
+    used_price DECIMAL(10, 2) NOT NULL,
+    potential_revenue DECIMAL(10, 2) GENERATED ALWAYS AS (
+        CASE
+            WHEN refurbished_price = 0 THEN null
+            WHEN used_price = 0 THEN null
+            ELSE refurbished_price - used_price
+        END
+    ) stored
+);
