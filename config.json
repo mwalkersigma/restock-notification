@@ -1,0 +1,9 @@
+{
+  "debug": true,
+  "dryRun": true,
+  "baseMessage": "Restock Notification For :",
+  "ErrorNoItems": "No Items Requiring Refurbishment Found",
+  "ErrorNoUsedItems": "No Used Components found",
+  "ErrorNoItemsInStock": "No Items found that can be refurbished with used inventory. ( We sold all of our refurbished inventory and have no used inventory to refurbish )",
+  "MessageFoundItems": "Found Items that can be restocked"
+}
