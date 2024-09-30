@@ -19,6 +19,7 @@ async function sendRingCentralMessage(message) {
         text: "",
     }
     baseMessage.text += message
+    baseMessage.text += `\n`
     baseMessage.text += `---\n`
     await platform.login({
         jwt: process.env.RC_JWT
