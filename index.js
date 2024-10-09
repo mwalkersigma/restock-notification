@@ -17,6 +17,18 @@ async function getConfig() {
 async function setConfig(config) {
     return await fs.writeFile('./config.json', JSON.stringify(config, null, 2))
 }
+async function recordNotification(itemsNeedingRestockNotification) {
+    const {results} = await PromisePool
+        .for(itemsNeedingRestockNotification)
+        .withConcurrency(10)
+        .process(async (item) => {
+            return await db.query(`
+                INSERT INTO nfs.surtrics.restock_notifications (sku, refurbished_price, used_price)
+                VALUES ($1, $2, $3)
+            `, [item['sku'], item['refurbishedRetailPrice'], item['retail_price']])
+        });
+    return results
+}
 async function getPickTransactions(startDate, endDate) {
     if (!startDate || !endDate) {
         throw new Error('Missing required fields')
@@ -160,6 +172,7 @@ const generateSkuRestockMessage = (item) => {
             key: 'Items for Restock',
             value: itemsForRestock.length
         })
+        await recordNotification(itemsForRestock)
     }
     catch (e) {
         console.error(e)
